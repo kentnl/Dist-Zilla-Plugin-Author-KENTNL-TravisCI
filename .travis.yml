@@ -7,6 +7,8 @@ before_install:
   - time git -C ./maint-travis-ci reset --hard master
   - time perl ./maint-travis-ci/branch_reset.pl
   - time perl ./maint-travis-ci/sterilize_env.pl
+before_script:
+  - time perl ./maint-travis-ci/before_script.pl
 branches:
   only:
     - master

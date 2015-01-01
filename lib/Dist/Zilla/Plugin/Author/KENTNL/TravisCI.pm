@@ -13,53 +13,47 @@ our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 use Moose qw( extends );
 extends 'Dist::Zilla::Plugin::TravisCI';
 
+use Path::Tiny qw(path);
+
 sub modify_travis_yml {
   my ( $self, %yaml ) = @_;
   my $allow_failures = [
-    { perl => "5.8" },
-    { env  => "STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1" },
-    { env  => "STERILIZE_ENV=0 DEVELOPER_DEPS=1" },
+    { perl => '5.8' },
+    { env  => 'STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1' },
+    { env  => 'STERILIZE_ENV=0 DEVELOPER_DEPS=1' },
   ];
   my $include = [
-    { perl => "5.21", env => "STERILIZE_ENV=0 COVERAGE_TESTING=1" },
-    { perl => "5.21", env => "STERILIZE_ENV=1" },
-    ( map { +{ perl => $_, env => "STERILIZE_ENV=0" } } "5.8", "5.10", "5.12", "5.14", "5.16", "5.20", "5.21", ),
-    ( map { +{ perl => $_, env => "STERILIZE_ENV=1" } } "5.8", "5.10", "5.20", ),
-    { perl => "5.21", env => "STERILIZE_ENV=0 DEVELOPER_DEPS=1" },
-    { perl => "5.21", env => "STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1" },
+    { perl => '5.21', env => 'STERILIZE_ENV=0 COVERAGE_TESTING=1' },
+    { perl => '5.21', env => 'STERILIZE_ENV=1' },
+    ( map { +{ perl => $_, env => 'STERILIZE_ENV=0' } } '5.8', '5.10', '5.12', '5.14', '5.16', '5.20', '5.21', ),
+    ( map { +{ perl => $_, env => 'STERILIZE_ENV=1' } } '5.8', '5.10', '5.20', ),
+    { perl => '5.21', env => 'STERILIZE_ENV=0 DEVELOPER_DEPS=1' },
+    { perl => '5.21', env => 'STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1' },
   ];
   $yaml{matrix} = {
     allow_failures => $allow_failures,
     include        => $include,
   };
   $yaml{before_install} = [
-    "perlbrew list",
-    "time git clone --depth 10 https://github.com/kentfredric/travis-scripts.git maint-travis-ci",
-    "time git -C ./maint-travis-ci reset --hard master",
-    "time perl ./maint-travis-ci/branch_reset.pl",
-    "time perl ./maint-travis-ci/sterilize_env.pl",
+    'perlbrew list',
+    'time git clone --depth 10 https://github.com/kentfredric/travis-scripts.git maint-travis-ci',
+    'time git -C ./maint-travis-ci reset --hard master',
+    'time perl ./maint-travis-ci/branch_reset.pl',
+    'time perl ./maint-travis-ci/sterilize_env.pl',
   ];
-  $yaml{install} = [
-   'time perl ./maint-travis-ci/install_deps_early.pl',
-   'time perl ./maint-travis-ci/install_deps.pl',
-  ];
-  $yaml{before_script} = [
-    'time perl ./maint-travis-ci/before_script.pl',
-  ];
-  $yaml{script} = [
-    "time perl ./maint-travis-ci/script.pl",
-  ];
-  $yaml{after_failure} = [
-    "perl ./maint-travis-ci/report_fail_ctx.pl",
-  ];
-  $yaml{branches} = {
-    only => [
-      "master",
-      "build/master",
-      "releases",
-    ]
-  };
+  $yaml{install}       = [ 'time perl ./maint-travis-ci/install_deps_early.pl', 'time perl ./maint-travis-ci/install_deps.pl', ];
+  $yaml{before_script} = [ 'time perl ./maint-travis-ci/before_script.pl', ];
+  $yaml{script}        = [ 'time perl ./maint-travis-ci/script.pl', ];
+  $yaml{after_failure} = [ 'perl ./maint-travis-ci/report_fail_ctx.pl', ];
+  $yaml{branches}      = { only => [ 'master', 'build/master', 'releases', ] };
   delete $yaml{perl};
+
+  my $script = path($self->zilla->root, 'inc', 'travisci.pl' );
+  if ( $script->exists ) {
+    last unless my $callback = do $script->stringify;
+    last unless ref $callback;
+    $callback->(\%yaml);
+  }
   return %yaml;
 }
 

@@ -23,6 +23,7 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Dist::Zilla::Plugin::TravisCI" => 0,
     "Moose" => 0,
+    "Path::Tiny" => 0,
     "strict" => 0,
     "warnings" => 0
   },
@@ -43,6 +44,7 @@ my %FallbackPrereqs = (
   "ExtUtils::MakeMaker" => 0,
   "File::Spec" => 0,
   "Moose" => 0,
+  "Path::Tiny" => 0,
   "Test::More" => "0.89",
   "strict" => 0,
   "warnings" => 0
