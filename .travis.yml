@@ -13,9 +13,8 @@ branches:
     - build/master
     - releases
 install:
-  - cpanm  --quiet  --notest --skip-installed Dist::Zilla
-  - dzil authordeps | grep -ve '^\W' | xargs -n 5 -P 10 cpanm  --quiet   --notest  --skip-installed
-  - dzil listdeps | grep -ve '^\W' | cpanm  --quiet   --notest  --skip-installed
+  - time perl ./maint-travis-ci/install_deps_early.pl
+  - time perl ./maint-travis-ci/install_deps.pl
 language: perl
 matrix:
   allow_failures:

@@ -39,6 +39,13 @@ sub modify_travis_yml {
     "time perl ./maint-travis-ci/branch_reset.pl",
     "time perl ./maint-travis-ci/sterilize_env.pl",
   ];
+  $yaml{install} = [
+   'time perl ./maint-travis-ci/install_deps_early.pl',
+   'time perl ./maint-travis-ci/install_deps.pl',
+  ];
+  $yaml{before_script} = [
+    'time perl ./maint-travis-ci/before_script.pl',
+  ];
   $yaml{script} = [
     "time perl ./maint-travis-ci/script.pl",
   ];
@@ -52,10 +59,6 @@ sub modify_travis_yml {
       "releases",
     ]
   };
-  $yaml{install} = [
-   'time perl ./maint-travis-ci/install_deps_early.pl',
-   'time perl ./maint-travis-ci/install_deps.pl',
-  ];
   delete $yaml{perl};
   return %yaml;
 }
