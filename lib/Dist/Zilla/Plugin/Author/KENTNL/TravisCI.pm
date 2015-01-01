@@ -32,7 +32,13 @@ sub modify_travis_yml {
     allow_failures => $allow_failures,
     include        => $include,
   };
-
+  $yaml{before_install} = [
+    "perlbrew list",
+    "time git clone --depth 10 https://github.com/kentfredric/travis-scripts.git maint-travis-ci",
+    "time git -C ./maint-travis-ci reset --hard master",
+    "time perl ./maint-travis-ci/branch_reset.pl",
+    "time perl ./maint-travis-ci/sterilize_env.pl",
+  ];
 }
 
 __PACKAGE__->meta->make_immutable;
