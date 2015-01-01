@@ -1,14 +1,49 @@
 ---
 before_install:
-  - export HARNESS_OPTIONS=j10:c HARNESS_TIMER=1
-  - rm .travis.yml
-  - git config --global user.name "Dist Zilla Plugin TravisCI"
-  - git config --global user.email $HOSTNAME":not-for-mail@travis-ci.org"
+  - perlbrew list
+  - time git clone --depth 10 https://github.com/kentfredric/travis-scripts.git maint-travis-ci
+  - time git -C ./maint-travis-ci reset --hard master
+  - time perl ./maint-travis-ci/branch_reset.pl
+  - time perl ./maint-travis-ci/sterilize_env.pl
 install:
   - cpanm  --quiet  --notest --skip-installed Dist::Zilla
   - dzil authordeps | grep -ve '^\W' | xargs -n 5 -P 10 cpanm  --quiet   --notest  --skip-installed
   - dzil listdeps | grep -ve '^\W' | cpanm  --quiet   --notest  --skip-installed
 language: perl
+matrix:
+  allow_failures:
+    - perl: 5.8
+    - env: STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1
+    - env: STERILIZE_ENV=0 DEVELOPER_DEPS=1
+  include:
+    - env: STERILIZE_ENV=0 COVERAGE_TESTING=1
+      perl: 5.21
+    - env: STERILIZE_ENV=1
+      perl: 5.21
+    - env: STERILIZE_ENV=0
+      perl: 5.8
+    - env: STERILIZE_ENV=0
+      perl: 5.10
+    - env: STERILIZE_ENV=0
+      perl: 5.12
+    - env: STERILIZE_ENV=0
+      perl: 5.14
+    - env: STERILIZE_ENV=0
+      perl: 5.16
+    - env: STERILIZE_ENV=0
+      perl: 5.20
+    - env: STERILIZE_ENV=0
+      perl: 5.21
+    - env: STERILIZE_ENV=1
+      perl: 5.8
+    - env: STERILIZE_ENV=1
+      perl: 5.10
+    - env: STERILIZE_ENV=1
+      perl: 5.20
+    - env: STERILIZE_ENV=0 DEVELOPER_DEPS=1
+      perl: 5.21
+    - env: STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1
+      perl: 5.21
 perl:
   - 5.20
   - 5.18

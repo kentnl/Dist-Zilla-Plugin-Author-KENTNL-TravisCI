@@ -39,6 +39,7 @@ sub modify_travis_yml {
     "time perl ./maint-travis-ci/branch_reset.pl",
     "time perl ./maint-travis-ci/sterilize_env.pl",
   ];
+  delete $yaml{perl};
   return %yaml;
 }
 
