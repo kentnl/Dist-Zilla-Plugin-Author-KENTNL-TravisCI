@@ -53,6 +53,7 @@ sub modify_travis_yml {
   };
   $yaml{before_install} = [
     'perlbrew list',
+    ## no critic (ValuesAndExpressions::RestrictLongStrings)
     'time git clone --depth 10 https://github.com/kentfredric/travis-scripts.git maint-travis-ci',
     'time git -C ./maint-travis-ci reset --hard master',
     'time perl ./maint-travis-ci/branch_reset.pl',
