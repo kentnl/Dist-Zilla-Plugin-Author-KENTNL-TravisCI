@@ -48,11 +48,11 @@ sub modify_travis_yml {
   $yaml{branches}      = { only => [ 'master', 'build/master', 'releases', ] };
   delete $yaml{perl};
 
-  my $script = path($self->zilla->root, 'inc', 'travisci.pl' );
+  my $script = path( $self->zilla->root, 'maint', 'travisci.pl' );
   if ( $script->exists ) {
     last unless my $callback = do $script->stringify;
     last unless ref $callback;
-    $callback->(\%yaml);
+    $callback->( \%yaml );
   }
   return %yaml;
 }
