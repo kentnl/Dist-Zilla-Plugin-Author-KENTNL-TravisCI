@@ -46,6 +46,7 @@ sub modify_travis_yml {
   $yaml{script}        = [ 'time perl ./maint-travis-ci/script.pl', ];
   $yaml{after_failure} = [ 'perl ./maint-travis-ci/report_fail_ctx.pl', ];
   $yaml{branches}      = { only => [ 'master', 'build/master', 'releases', ] };
+  $yaml{sudo}          = undef;
   delete $yaml{perl};
 
   my $script = path( $self->zilla->root, 'maint', 'travisci.pl' );
