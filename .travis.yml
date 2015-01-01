@@ -1,10 +1,17 @@
 ---
+after_failure:
+  - perl ./maint-travis-ci/report_fail_ctx.pl
 before_install:
   - perlbrew list
   - time git clone --depth 10 https://github.com/kentfredric/travis-scripts.git maint-travis-ci
   - time git -C ./maint-travis-ci reset --hard master
   - time perl ./maint-travis-ci/branch_reset.pl
   - time perl ./maint-travis-ci/sterilize_env.pl
+branches:
+  only:
+    - master
+    - build/master
+    - releases
 install:
   - cpanm  --quiet  --notest --skip-installed Dist::Zilla
   - dzil authordeps | grep -ve '^\W' | xargs -n 5 -P 10 cpanm  --quiet   --notest  --skip-installed
@@ -45,4 +52,4 @@ matrix:
     - env: STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1
       perl: 5.21
 script:
-  - dzil smoke --release --author
+  - time perl ./maint-travis-ci/script.pl

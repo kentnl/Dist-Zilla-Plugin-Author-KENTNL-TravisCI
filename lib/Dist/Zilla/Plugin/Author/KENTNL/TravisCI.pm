@@ -52,6 +52,10 @@ sub modify_travis_yml {
       "releases",
     ]
   };
+  $yaml{install} = [
+   'time perl ./maint-travis-ci/install_deps_early.pl',
+   'time perl ./maint-travis-ci/install_deps.pl',
+  ];
   delete $yaml{perl};
   return %yaml;
 }
