@@ -39,6 +39,19 @@ sub modify_travis_yml {
     "time perl ./maint-travis-ci/branch_reset.pl",
     "time perl ./maint-travis-ci/sterilize_env.pl",
   ];
+  $yaml{script} = [
+    "time perl ./maint-travis-ci/script.pl",
+  ];
+  $yaml{after_failure} = [
+    "perl ./maint-travis-ci/report_fail_ctx.pl",
+  ];
+  $yaml{branches} = {
+    only => [
+      "master",
+      "build/master",
+      "releases",
+    ]
+  };
   delete $yaml{perl};
   return %yaml;
 }
