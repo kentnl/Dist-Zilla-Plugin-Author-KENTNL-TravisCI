@@ -10,23 +10,36 @@ our $VERSION = '0.001000';
 
 our $AUTHORITY = 'cpan:KENTNL'; # AUTHORITY
 
-use Moose qw( extends );
+use Moose qw( extends has around );
 extends 'Dist::Zilla::Plugin::TravisCI';
 
 use Path::Tiny qw(path);
 
+has skip_perls => ( isa => 'ArrayRef[Str]', is => 'ro', default => sub { [] } );
+has fail_perls => ( isa => 'ArrayRef[Str]', is => 'ro', default => sub { ['5.8'] } );
+
+around mvp_multivalue_args => sub {
+  my ( $orig, $self, @args ) = @_;
+  return ( $self->$orig(@args), qw( skip_perls fail_perls ) );
+};
+
 sub modify_travis_yml {
   my ( $self, %yaml ) = @_;
   my $allow_failures = [
-    { perl => '5.8' },
-    { env  => 'STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1' },
-    { env  => 'STERILIZE_ENV=0 DEVELOPER_DEPS=1' },
+    ( map { +{ perl => $_ } } @{ $self->fail_perls } ),
+    { env => 'STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1' },
+    { env => 'STERILIZE_ENV=0 DEVELOPER_DEPS=1' },
   ];
+
+  my (%skip_perls) = map { $_ => 1 } @{ $self->skip_perls };
+  my (@sterile_perls) = grep { not exists $skip_perls{$_} } '5.8', '5.10', '5.20';
+  my (@normal_perls) = grep { not exists $skip_perls{$_} } '5.8', '5.10', '5.12', '5.14', '5.16', '5.20', '5.21';
+
   my $include = [
     { perl => '5.21', env => 'STERILIZE_ENV=0 COVERAGE_TESTING=1' },
     { perl => '5.21', env => 'STERILIZE_ENV=1' },
-    ( map { +{ perl => $_, env => 'STERILIZE_ENV=0' } } '5.8', '5.10', '5.12', '5.14', '5.16', '5.20', '5.21', ),
-    ( map { +{ perl => $_, env => 'STERILIZE_ENV=1' } } '5.8', '5.10', '5.20', ),
+    ( map { +{ perl => $_, env => 'STERILIZE_ENV=0' } } @normal_perls ),
+    ( map { +{ perl => $_, env => 'STERILIZE_ENV=1' } } @sterile_perls ),
     { perl => '5.21', env => 'STERILIZE_ENV=0 DEVELOPER_DEPS=1' },
     { perl => '5.21', env => 'STERILIZE_ENV=0 RELEASE_TESTING=1 AUTHOR_TESTING=1' },
   ];

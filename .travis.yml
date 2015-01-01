@@ -54,4 +54,4 @@ matrix:
       perl: 5.21
 script:
   - time perl ./maint-travis-ci/script.pl
-sudo: ~
+sudo: false
