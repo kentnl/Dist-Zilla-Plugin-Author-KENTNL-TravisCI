@@ -23,6 +23,10 @@ around mvp_multivalue_args => sub {
   return ( $self->$orig(@args), qw( skip_perls fail_perls ) );
 };
 
+
+
+
+
 sub modify_travis_yml {
   my ( $self, %yaml ) = @_;
   my $allow_failures = [
@@ -95,6 +99,8 @@ version 0.001000
 B<NO USER SERVICEABLE PARTS INSIDE>
 
 B<CHOKING HAZARD>
+
+=for Pod::Coverage modify_travis_yml
 
 =head1 AUTHOR
 
