@@ -1,2 +1,19 @@
 This file contains changes to DEVELOPMENT dependencies only ( both REQUIRED and OPTIONAL )
 
+0.001001
+ [Added / develop requires]
+ - Dist::Zilla::Plugin::Prereqs::Upgrade
+ - Dist::Zilla::Plugin::Readme::Brief
+
+ [Changed / develop recommends]
+ - Test::More 1.001014 → 0.99
+
+ [Changed / develop requires]
+ - Test::More 0 → 0.88
+
+ [Changed / develop suggests]
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.022003 → 2.023002
+
+ [Removed / develop requires]
+ - Dist::Zilla::Plugin::Pod2Readme
+

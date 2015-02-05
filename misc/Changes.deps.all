@@ -1,2 +1,33 @@
 This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL dependencies for all phases (configure/build/runtime/test/develop)
 
+0.001001
+ [Added / develop requires]
+ - Dist::Zilla::Plugin::Prereqs::Upgrade
+ - Dist::Zilla::Plugin::Readme::Brief
+
+ [Added / runtime recommends]
+ - Moose 2.000
+ - Path::Tiny 0.058
+
+ [Changed / configure recommends]
+ - ExtUtils::MakeMaker 7.04 → 7.00
+
+ [Changed / develop recommends]
+ - Test::More 1.001014 → 0.99
+
+ [Changed / develop requires]
+ - Test::More 0 → 0.88
+
+ [Changed / develop suggests]
+ - Dist::Zilla::PluginBundle::Author::KENTNL 2.022003 → 2.023002
+
+ [Changed / runtime requires]
+ - Dist::Zilla::Plugin::TravisCI 0 → 0.008
+
+ [Changed / test recommends]
+ - ExtUtils::MakeMaker 7.04 → 7.00
+ - Test::More 1.001014 → 0.99
+
+ [Removed / develop requires]
+ - Dist::Zilla::Plugin::Pod2Readme
+
