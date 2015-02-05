@@ -21,7 +21,7 @@ my %WriteMakefileArgs = (
   "MIN_PERL_VERSION" => "5.006",
   "NAME" => "Dist::Zilla::Plugin::Author::KENTNL::TravisCI",
   "PREREQ_PM" => {
-    "Dist::Zilla::Plugin::TravisCI" => 0,
+    "Dist::Zilla::Plugin::TravisCI" => "0.008",
     "Moose" => 0,
     "Path::Tiny" => 0,
     "strict" => 0,
@@ -40,7 +40,7 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
-  "Dist::Zilla::Plugin::TravisCI" => 0,
+  "Dist::Zilla::Plugin::TravisCI" => "0.008",
   "ExtUtils::MakeMaker" => 0,
   "File::Spec" => 0,
   "Moose" => 0,

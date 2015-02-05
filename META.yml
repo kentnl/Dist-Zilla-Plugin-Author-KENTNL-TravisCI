@@ -25,7 +25,7 @@ recommends:
   Moose: '2.000'
   Path::Tiny: '0.058'
 requires:
-  Dist::Zilla::Plugin::TravisCI: '0'
+  Dist::Zilla::Plugin::TravisCI: '0.008'
   Moose: '0'
   Path::Tiny: '0'
   perl: '5.006'
