@@ -49,7 +49,7 @@
       "Dist::Zilla::Plugin::Test::Perl::Critic" : "3.000",
       "Dist::Zilla::Plugin::Test::ReportPrereqs" : "0.020",
       "Dist::Zilla::Plugin::TestRelease" : "5.031",
-      "Dist::Zilla::Plugin::TravisCI" : "0.007",
+      "Dist::Zilla::Plugin::TravisCI" : "0.008",
       "Dist::Zilla::Plugin::Twitter" : "0.026",
       "Dist::Zilla::Plugin::UploadToCPAN" : "5.031",
       "Dist::Zilla::PluginBundle::Author::KENTNL" : "2.023002",
