@@ -21,6 +21,9 @@ This file contains ALL changes in dependencies in both REQUIRED / OPTIONAL depen
  [Changed / develop suggests]
  - Dist::Zilla::PluginBundle::Author::KENTNL 2.022003 → 2.023002
 
+ [Changed / runtime requires]
+ - Dist::Zilla::Plugin::TravisCI 0 → 0.008
+
  [Changed / test recommends]
  - ExtUtils::MakeMaker 7.04 → 7.00
  - Test::More 1.001014 → 0.99
