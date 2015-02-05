@@ -1,6 +1,9 @@
 Release history for Dist-Zilla-Plugin-Author-KENTNL-TravisCI
 
-0.001001 2015-02-05T04:43:06Z 1ff2910
+0.001001 2015-02-05T04:53:48Z 92d7044
+ [Bugs]
+ - Force quoting numeric strings in yaml with latest travisci plugin
+
  [Dependencies::Stats]
  - Dependencies changed since 0.001000, see misc/*.deps* for details
  - configure: (recommends: ↓1)
