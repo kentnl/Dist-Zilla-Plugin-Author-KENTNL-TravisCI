@@ -82,7 +82,7 @@ do { my $x = {
                                         'Path::Tiny' => '0.058'
                                       },
                       'requires' => {
-                                      'Dist::Zilla::Plugin::TravisCI' => '0.008',
+                                      'Dist::Zilla::Plugin::TravisCI' => '0',
                                       'Moose' => '0',
                                       'Path::Tiny' => '0',
                                       'perl' => '5.006',
