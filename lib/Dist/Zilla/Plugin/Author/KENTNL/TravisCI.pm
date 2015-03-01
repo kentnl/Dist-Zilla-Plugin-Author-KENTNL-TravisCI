@@ -63,7 +63,7 @@ sub modify_travis_yml {
   $yaml{before_script} = [ 'time perl ./maint-travis-ci/before_script.pl', ];
   $yaml{script}        = [ 'time perl ./maint-travis-ci/script.pl', ];
   $yaml{after_failure} = [ 'perl ./maint-travis-ci/report_fail_ctx.pl', ];
-  $yaml{branches}      = { only => [ 'master', 'build/master', 'releases', ] };
+  $yaml{branches}      = { only => [ 'master', 'builds', 'releases', ] };
   $yaml{sudo}          = 'false';
   delete $yaml{perl};
 
