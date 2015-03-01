@@ -4,7 +4,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::Author::KENTNL::TravisCI;
 
-our $VERSION = '0.001002';
+our $VERSION = '0.001003';
 
 # ABSTRACT: A specific subclass of TravisCI that does horrible things
 
