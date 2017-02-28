@@ -23,6 +23,23 @@ around mvp_multivalue_args => sub {
   return ( $self->$orig(@args), qw( skip_perls fail_perls ) );
 };
 
+around dump_config => sub {
+  my ( $orig, $self, @args ) = @_;
+  my $config = $self->$orig(@args);
+  my $localconf = $config->{ +__PACKAGE__ } = {};
+
+  $localconf->{skip_perls} = $self->skip_perls;
+  $localconf->{fail_perls} = $self->fail_perls;
+
+  $localconf->{ q[$] . __PACKAGE__ . '::VERSION' } = $VERSION
+    unless __PACKAGE__ eq ref $self;
+
+  return $config;
+};
+
+__PACKAGE__->meta->make_immutable;
+no Moose;
+
 
 
 
@@ -79,9 +96,6 @@ sub modify_travis_yml {
   }
   return %yaml;
 }
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 
 1;
 

@@ -293,6 +293,14 @@
          },
          {
             "class" : "Dist::Zilla::Plugin::Author::KENTNL::TravisCI",
+            "config" : {
+               "Dist::Zilla::Plugin::Author::KENTNL::TravisCI" : {
+                  "fail_perls" : [
+                     "5.8"
+                  ],
+                  "skip_perls" : []
+               }
+            },
             "name" : "@Author::KENTNL/Author::KENTNL::TravisCI",
             "version" : "0.001003"
          },
@@ -865,6 +873,14 @@
          },
          {
             "class" : "Dist::Zilla::Plugin::Author::KENTNL::TravisCI",
+            "config" : {
+               "Dist::Zilla::Plugin::Author::KENTNL::TravisCI" : {
+                  "fail_perls" : [
+                     "5.8"
+                  ],
+                  "skip_perls" : []
+               }
+            },
             "name" : "Author::KENTNL::TravisCI",
             "version" : "0.001003"
          },
