@@ -76,7 +76,11 @@ sub modify_travis_yml {
     'time perl ./maint-travis-ci/branch_reset.pl',
     'time perl ./maint-travis-ci/sterilize_env.pl',
   ];
-  $yaml{install}       = [ 'time perl ./maint-travis-ci/install_deps_early.pl', 'time perl ./maint-travis-ci/install_deps.pl', ];
+  $yaml{install} = [
+    'time perl ./maint-travis-ci/install_deps_early.pl',
+    'time perl ./maint-travis-ci/autoinstall_dzil.pl',
+    'time perl ./maint-travis-ci/install_deps_2.pl',
+  ];
   $yaml{before_script} = [ 'time perl ./maint-travis-ci/before_script.pl', ];
   $yaml{script}        = [ 'time perl ./maint-travis-ci/script.pl', ];
   $yaml{after_failure} = [ 'perl ./maint-travis-ci/report_fail_ctx.pl', ];
