@@ -24,5 +24,3 @@ Test::Compile::PerFile.test_template = 02-raw-require.t.tpl
 
 [Prereqs]
 Dist::Zilla::Plugin::TravisCI = 0.008
-
-[Author::KENTNL::TravisCI]
