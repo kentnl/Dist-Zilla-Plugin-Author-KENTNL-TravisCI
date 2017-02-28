@@ -69,7 +69,7 @@ sub modify_travis_yml {
 
   my $script = path( $self->zilla->root, 'maint', 'travisci.pl' );
   if ( $script->exists ) {
-    last unless my $callback = do $script->stringify;
+    last unless my $callback = do $script->absolute->stringify;
     last unless ref $callback;
     $callback->( \%yaml );
   }

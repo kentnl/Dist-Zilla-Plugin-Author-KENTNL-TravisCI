@@ -399,7 +399,7 @@
                }
             },
             "name" : "@Author::KENTNL/Test::Compile::PerFile",
-            "version" : "0.003900"
+            "version" : "0.003901"
          },
          {
             "class" : "Dist::Zilla::Plugin::Test::Perl::Critic",

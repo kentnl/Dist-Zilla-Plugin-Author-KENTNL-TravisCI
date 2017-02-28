@@ -1,6 +1,9 @@
 Release history for Dist-Zilla-Plugin-Author-KENTNL-TravisCI
 
-0.001003 2017-02-28T05:03:57Z b3909ac
+0.001003 2017-02-28T05:26:53Z 6b382ed
+ [Bugfix]
+ - Always call "do" with an absolute path for yaml data augmentation.
+
  [Dependencies::Stats]
  - Dependencies changed since 0.001002, see misc/*.deps* for details
  - develop: +6 ↑3 -1 (suggests: ↑2)
