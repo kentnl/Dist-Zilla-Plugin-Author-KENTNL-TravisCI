@@ -6,6 +6,7 @@ Release history for Dist-Zilla-Plugin-Author-KENTNL-TravisCI
  - Don't call "last" outside a block/loop
  - Don't silently continue when augmentation script load fails
  - Fix . relative paths in tests for 5.26 + ( closes #1 )
+ - Script-Invoke logic updated
 
  [Dependencies::Stats]
  - Dependencies changed since 0.001002, see misc/*.deps* for details
