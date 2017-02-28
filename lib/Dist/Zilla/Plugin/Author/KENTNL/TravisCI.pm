@@ -4,7 +4,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::Author::KENTNL::TravisCI;
 
-our $VERSION = '0.001002';
+our $VERSION = '0.001003'; # TRIAL
 
 # ABSTRACT: A specific subclass of TravisCI that does horrible things
 
@@ -22,6 +22,23 @@ around mvp_multivalue_args => sub {
   my ( $orig, $self, @args ) = @_;
   return ( $self->$orig(@args), qw( skip_perls fail_perls ) );
 };
+
+around dump_config => sub {
+  my ( $orig, $self, @args ) = @_;
+  my $config = $self->$orig(@args);
+  my $localconf = $config->{ +__PACKAGE__ } = {};
+
+  $localconf->{skip_perls} = $self->skip_perls;
+  $localconf->{fail_perls} = $self->fail_perls;
+
+  $localconf->{ q[$] . __PACKAGE__ . '::VERSION' } = $VERSION
+    unless __PACKAGE__ eq ref $self;
+
+  return $config;
+};
+
+__PACKAGE__->meta->make_immutable;
+no Moose;
 
 
 
@@ -59,7 +76,11 @@ sub modify_travis_yml {
     'time perl ./maint-travis-ci/branch_reset.pl',
     'time perl ./maint-travis-ci/sterilize_env.pl',
   ];
-  $yaml{install}       = [ 'time perl ./maint-travis-ci/install_deps_early.pl', 'time perl ./maint-travis-ci/install_deps.pl', ];
+  $yaml{install} = [
+    'time perl ./maint-travis-ci/install_deps_early.pl',
+    'time perl ./maint-travis-ci/autoinstall_dzil.pl',
+    'time perl ./maint-travis-ci/install_deps_2.pl',
+  ];
   $yaml{before_script} = [ 'time perl ./maint-travis-ci/before_script.pl', ];
   $yaml{script}        = [ 'time perl ./maint-travis-ci/script.pl', ];
   $yaml{after_failure} = [ 'perl ./maint-travis-ci/report_fail_ctx.pl', ];
@@ -67,17 +88,18 @@ sub modify_travis_yml {
   $yaml{sudo}          = 'false';
   delete $yaml{perl};
 
-  my $script = path( $self->zilla->root, 'maint', 'travisci.pl' );
-  if ( $script->exists ) {
-    last unless my $callback = do $script->stringify;
-    last unless ref $callback;
-    $callback->( \%yaml );
+  my $script = path( $self->zilla->root, 'maint', 'travisci.pl' )->absolute->stringify;
+  {
+    if ( -e $script ) {
+      local ( $@, $! );    ## no critic (Variables::RequireInitializationForLocalVars)
+      my $callback = do $script;
+      $self->log_fatal("$@ $!") if $@ or $!;
+      $self->log_fatal('Did not return a callback') unless ref $callback;
+      $callback->( \%yaml );
+    }
   }
   return %yaml;
 }
-
-__PACKAGE__->meta->make_immutable;
-no Moose;
 
 1;
 
@@ -93,7 +115,7 @@ Dist::Zilla::Plugin::Author::KENTNL::TravisCI - A specific subclass of TravisCI 
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 DESCRIPTION
 
@@ -109,7 +131,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2015 by Kent Fredric <kentfredric@gmail.com>.
+This software is copyright (c) 2017 by Kent Fredric <kentfredric@gmail.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

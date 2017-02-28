@@ -1,5 +1,21 @@
 Release history for Dist-Zilla-Plugin-Author-KENTNL-TravisCI
 
+0.001003 2017-02-28T09:02:40Z 05c0c8c
+ [Bugfix]
+ - Always call "do" with an absolute path for yaml data augmentation.
+ - Don't call "last" outside a block/loop
+ - Don't silently continue when augmentation script load fails
+ - Fix . relative paths in tests for 5.26 + ( closes #1 )
+ - Script-Invoke logic updated
+
+ [Dependencies::Stats]
+ - Dependencies changed since 0.001002, see misc/*.deps* for details
+ - develop: +7 ↑4 -2 (suggests: ↑2)
+ - test: ↓1
+
+ [Internals]
+ - Export config data to metaconfig
+
 0.001002 2015-03-01T09:37:04Z 5d26836
  [Dependencies::Stats]
  - Dependencies changed since 0.001001, see misc/*.deps* for details
@@ -21,4 +37,3 @@ Release history for Dist-Zilla-Plugin-Author-KENTNL-TravisCI
 
 0.001000 2015-01-01T22:26:43Z ed209f3
  - First version.
-
