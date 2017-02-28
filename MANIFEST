@@ -15,6 +15,7 @@ dist.ini
 dist.ini.meta
 lib/Dist/Zilla/Plugin/Author/KENTNL/TravisCI.pm
 maint/perlcritic.rc.gen.pl
+maint/travisci.pl
 misc/Changes.deps
 misc/Changes.deps.all
 misc/Changes.deps.dev
