@@ -4,7 +4,7 @@ use warnings;
 
 package Dist::Zilla::Plugin::Author::KENTNL::TravisCI;
 
-our $VERSION = '0.001002';
+our $VERSION = '0.001003';
 
 # ABSTRACT: A specific subclass of TravisCI that does horrible things
 
@@ -63,7 +63,7 @@ sub modify_travis_yml {
   $yaml{before_script} = [ 'time perl ./maint-travis-ci/before_script.pl', ];
   $yaml{script}        = [ 'time perl ./maint-travis-ci/script.pl', ];
   $yaml{after_failure} = [ 'perl ./maint-travis-ci/report_fail_ctx.pl', ];
-  $yaml{branches}      = { only => [ 'master', 'build/master', 'releases', ] };
+  $yaml{branches}      = { only => [ 'master', 'builds', 'releases', ] };
   $yaml{sudo}          = 'false';
   delete $yaml{perl};
 
@@ -93,7 +93,7 @@ Dist::Zilla::Plugin::Author::KENTNL::TravisCI - A specific subclass of TravisCI 
 
 =head1 VERSION
 
-version 0.001002
+version 0.001003
 
 =head1 DESCRIPTION
 
@@ -109,7 +109,7 @@ Kent Fredric <kentnl@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2015 by Kent Fredric <kentfredric@gmail.com>.
+This software is copyright (c) 2017 by Kent Fredric <kentfredric@gmail.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
