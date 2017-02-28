@@ -67,11 +67,13 @@ sub modify_travis_yml {
   $yaml{sudo}          = 'false';
   delete $yaml{perl};
 
-  my $script = path( $self->zilla->root, 'maint', 'travisci.pl' );
+  my $script = path( $self->zilla->root, 'maint', 'travisci.pl' )->absolute->stringify;
   {
-    if ( $script->exists ) {
-      last unless my $callback = do $script->absolute->stringify;
-      last unless ref $callback;
+    if ( -e $script ) {
+      local ( $@, $! );    ## no critic (Variables::RequireInitializationForLocalVars)
+      my $callback = do $script;
+      $self->log_fatal("$@ $!") if $@ or $!;
+      $self->log_fatal('Did not return a callback') unless ref $callback;
       $callback->( \%yaml );
     }
   }

@@ -4,6 +4,7 @@ Release history for Dist-Zilla-Plugin-Author-KENTNL-TravisCI
  [Bugfix]
  - Always call "do" with an absolute path for yaml data augmentation.
  - Don't call "last" outside a block/loop
+ - Don't silently continue when augmentation script load fails
 
  [Dependencies::Stats]
  - Dependencies changed since 0.001002, see misc/*.deps* for details
