@@ -15,9 +15,9 @@ branches:
     - builds
     - releases
 install:
-  - time cpanm --quiet --notest --no-man-pages --dev Dist::Zilla::Plugin::Test::Compile::PerFile
   - time perl ./maint-travis-ci/install_deps_early.pl
   - time perl ./maint-travis-ci/install_deps.pl
+  - time cpanm --quiet --notest --no-man-pages --dev Dist::Zilla::Plugin::Test::Compile::PerFile
 language: perl
 matrix:
   allow_failures:
