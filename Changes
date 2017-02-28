@@ -3,7 +3,7 @@ Release history for Dist-Zilla-Plugin-Author-KENTNL-TravisCI
 {{$NEXT}}
  [Dependencies::Stats]
  - Dependencies changed since 0.001002, see misc/*.deps* for details
- - develop: +3 ↑1 (suggests: ↑2)
+ - develop: +6 ↑3 -1 (suggests: ↑2)
 
 0.001002 2015-03-01T09:37:04Z 5d26836
  [Dependencies::Stats]
