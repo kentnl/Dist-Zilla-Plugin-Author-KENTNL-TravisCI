@@ -20,7 +20,7 @@ name: Dist-Zilla-Plugin-Author-KENTNL-TravisCI
 provides:
   Dist::Zilla::Plugin::Author::KENTNL::TravisCI:
     file: lib/Dist/Zilla/Plugin/Author/KENTNL/TravisCI.pm
-    version: '0.001004'
+    version: '0.001005'
 recommends:
   Moose: '2.000'
   Path::Tiny: '0.058'
@@ -35,4 +35,4 @@ resources:
   bugtracker: https://github.com/kentnl/Dist-Zilla-Plugin-Author-KENTNL-TravisCI/issues
   homepage: https://github.com/kentnl/Dist-Zilla-Plugin-Author-KENTNL-TravisCI
   repository: https://github.com/kentnl/Dist-Zilla-Plugin-Author-KENTNL-TravisCI.git
-version: '0.001004'
+version: '0.001005'
